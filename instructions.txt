@@ -1,15 +1,4 @@
-### CREATE A NETWORK ###
-docker network create  --subnet=172.18.0.0/16 magento
-
-
-### CREATE MYSQL ###
-docker volume create mysql
-
-docker run -d --name mysql -v mysql:/var/lib/mysql -e MYSQL_DATABASE=magento -e MYSQL_ROOT_PASSWORD=keepitsecret --network=magento --ip 172.18.0.10 --restart always -d mysql:8.0
-
-
-### CREATE ELASTICSEARCH ###
-docker volume create elasticsearch
+##Below Instructions will be passed through ConfigMap once Magento Image is deployed##
 
 
 
