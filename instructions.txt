@@ -11,32 +11,7 @@ docker run -d --name mysql -v mysql:/var/lib/mysql -e MYSQL_DATABASE=magento -e 
 ### CREATE ELASTICSEARCH ###
 docker volume create elasticsearch
 
-docker run -d --name elasticsearch --network=magento --ip 172.18.0.11 -v elasticsearch:/usr/share/elasticsearch -e "discovery.type=single-node" -e "xpack.security.enabled=true" -e ELASTIC_PASSWORD=keepitsecret --restart always elasticsearch:7.16.1
 
-
-### CREATE REDIS ###
-docker run -d --network=magento --ip 172.18.0.12 --name redis --restart always redis:6.2
-
-
-### CREATE RABBITMQ ###
-docker volume create rabbitmq
-
-docker run -d --network=magento --ip 172.18.0.13 --name rabbitmq -v rabbitmq:/var/lib/rabbitmq --restart always rabbitmq:3.9
-
-
-### RUN MAGENTO ###
-
-*** REPLACE config/auth.json file with your magento auth.json file. ***
-docker build -t whyxn/magento-k8s:2.4.4-v2 .
-docker run -d --network=magento -p 8080:8080 --name magento --restart always whyxn/magento-k8s:2.4.4-v2
-
-
-### CREATE VARNISH ###
-docker run -d --network=magento --ip 172.18.0.14 --name varnish --restart always -p 8080:80 whyxn/varnish-magento:7.0 
-
-
-### INSTALL DEPENDENCIES ###
-composer install --no-interaction
 
 
 ### INSTALL MAGENTO ###
